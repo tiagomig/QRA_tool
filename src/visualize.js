@@ -29,7 +29,8 @@ let dataUrls = {
     "nk_area": "./data/population_nk_processed_06w2_with_D.geojson",
     "stockholm_area": "./data/population_stockholm.geojson",
     "ockero_area": "./data/population_ockero.geojson",
-    "vastervik_area": "./data/population_vastervik.geojson"
+    "vastervik_area": "./data/population_vastervik.geojson",
+    "canary_area": "./data/population_canary.geojson"
 }
 
 let dataViews = {
@@ -37,6 +38,7 @@ let dataViews = {
     "stockholm_area": [59.3118, 18.0663],
     "ockero_area": [57.71, 11.65],
     "vastervik_area": [57.75, 16.63],
+    "canary_area": [28.5, -15.5]
 }
 
 let dataZoomLevels = {
@@ -44,6 +46,7 @@ let dataZoomLevels = {
     "stockholm_area": 11,
     "ockero_area": 12,
     "vastervik_area": 12,
+    "canary_area": 7
 }
 
 let workersUrl = './src/workers.js';
@@ -128,6 +131,7 @@ class Visualization {
 
     constructor(selected_area) {
         this.#selectedArea = selected_area;
+        console.log(`Switching to ${this.#selectedArea}`);
         this.#dataUrl = dataUrls[selected_area] ?? dataUrls["nk_area"];
         console.log(this.#dataUrl);
 

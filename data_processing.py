@@ -52,19 +52,36 @@ def reduce_data(block):
 
 
 def block_processing(block):
-    """Returns total time, average speed by all GA and probability of collision for the given block."""
-    polygon_coords = block['geometry']['coordinates'][0][0]
+    """Returns total time, average speed by all GA and probability of collision for the given block.
+    Accepts both Polygon and MultiPolygon geometries and extracts the exterior ring coords.
+    """
+    geometry = block.get('geometry', {})
+    geom_type = geometry.get('type')
+
+    if geom_type == 'Polygon':
+        # exterior ring of Polygon
+        polygon_coords = geometry.get('coordinates', [])[0]
+    elif geom_type == 'MultiPolygon':
+        # first polygon
+        polygon_coords = geometry.get('coordinates', [])[0][0]
+    else:
+        raise ValueError(f"Unsupported geometry type: {geom_type!r}")
+    
     T, v_GA_mean = risk_calculations.get_block_data(polygon_coords)
-    prob = risk_calculations.compute_risk_prob()
-    return T, v_GA_mean, prob
+    # prob = risk_calculations.compute_risk_prob()
+    return T, v_GA_mean #, prob
 
 
 def main(path, new_file_path):
     """main function, that does the processing and saves the data as a json file to disc."""
     blocks_data = read_file(path)
+
+    # Moved the risk probability computation outside the loop since it doesn't depend on individual blocks
+    p = risk_calculations.compute_risk_prob()
     
     for block in tqdm(blocks_data['features']):
-        total_time, v, p = block_processing(block)
+        # total_time, v, p = block_processing(block)
+        total_time, v = block_processing(block)
         block['properties']['T'], block['properties']['v'], block['properties']['p'] = total_time, v, round(p, 3)
         reduce_data(block)
     write_file(blocks_data, new_file_path)
@@ -73,7 +90,7 @@ def main(path, new_file_path):
 
 
 if __name__ == "__main__":
-    path, path_new = './data/vastervik.geojson', './data/population_vastervik.geojson'
+    path, path_new = './data/canary.geojson', './data/population_canary.geojson'
     main(path, path_new)
 
 # --------------------- END OF FILE ---------------------

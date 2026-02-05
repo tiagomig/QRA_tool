@@ -157,18 +157,23 @@ function convertSpeed(v) {
 #   data folder with the provided name.
 */
 function createRTree(features) {
-    let tree = new RBush();
+    const tree = new RBush();
 
-    let items = features.map((block, index) => {
-        let coords = block['geometry']['coordinates'][0][0];
-        return {minX: coords[0][0], minY: coords[3][1], maxX: coords[2][0], maxY: coords[1][1], id: index};
-    }
-    );
+    // Compute bounding box for each feature using turf.bbox which
+    // supports both Polygon and MultiPolygon geometries.
+    const items = features.map((block, index) => {
+        const bbox = turf.bbox(block);
+        return {
+            minX: bbox[0],
+            minY: bbox[1],
+            maxX: bbox[2],
+            maxY: bbox[3],
+            id: index,
+        };
+    });
 
-    tree.load(items)
-
-    return tree
-
+    tree.load(items);
+    return tree;
 }
 
 /**

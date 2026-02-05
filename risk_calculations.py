@@ -73,8 +73,11 @@ def get_block_data(polygon_coords):
     Given the latlng coordinates of a block (pixel) polygon, this function returns 
     the total time spent by all GA in the block as well as their average speed.
     """
-    polygon = shapely.Polygon(polygon_coords)
-    intersected_segment = TRAFFIC_DATA.inside_bbox(polygon)
+    if TRAFFIC_DATA is not None:
+        polygon = shapely.Polygon(polygon_coords)
+        intersected_segment = TRAFFIC_DATA.inside_bbox(polygon)
+    else:
+        intersected_segment = None
 
     if intersected_segment:
         v_GA_mean = intersected_segment.data.groundspeed.mean() * 0.5144444  # knots/s to m/s
