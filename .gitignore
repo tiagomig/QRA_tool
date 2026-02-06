@@ -136,7 +136,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+bundle.js.map
 
 # Dependency directories
 node_modules/

@@ -35,6 +35,7 @@ This may make the output file a bit smaller
 
 ## To compile bundle.js
 - You need to download JNode (node + npm). Then execute:
+  - SET PATH=%PATH%;<NPM_PATH>\node-v24.13.0-win-x64\
   - npm install
   - npx webpack --mode production (to compile into production)
   - npx webpack --mode development --devtool source-map --watch (to add debug information and compile in dev, ie recompile each time a file is modified)

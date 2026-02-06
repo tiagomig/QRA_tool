@@ -1157,14 +1157,14 @@ class Visualization {
         if (!this.#globalAltitudeSlider.noUiSlider) {
             noUiSlider.create(this.#globalAltitudeSlider, {
                 start: [this.#rectangleWidth],
-                step: 1,
+                step: 10,
                 tooltips: {
                     to: (value) => Math.round(value),
                 },
                 connect: 'lower',
                 range: {
                 'min': [10],
-                'max': [1200]
+                'max': [17000]
                 },
             });
         }
@@ -1253,14 +1253,14 @@ class Visualization {
         if (!this.#droneDimensionSlider.noUiSlider) {
             noUiSlider.create(this.#droneDimensionSlider, {
                 start: [this.#droneDiameter],
-                step: 0.01,
+                step: 0.1,
                 tooltips: {
                     to: (value) => Number(value).toFixed(2),
                 },
                 connect: 'lower',
                 range: {
                     'min': [0.1],
-                    'max': [5]
+                    'max': [60]
                 },
             });
         }
