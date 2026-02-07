@@ -30,7 +30,9 @@ let dataUrls = {
     "stockholm_area": "./data/population_stockholm.geojson",
     "ockero_area": "./data/population_ockero.geojson",
     "vastervik_area": "./data/population_vastervik.geojson",
-    "canary_area": "./data/population_canary.geojson"
+    "canary_area": "./data/population_canary.geojson",
+    "fuerteventura_area": "./data/population_fuerteventura.geojson"
+
 }
 
 let dataViews = {
@@ -38,7 +40,8 @@ let dataViews = {
     "stockholm_area": [59.3118, 18.0663],
     "ockero_area": [57.71, 11.65],
     "vastervik_area": [57.75, 16.63],
-    "canary_area": [28.5, -15.5]
+    "canary_area": [28.5, -15.5],
+    "fuerteventura_area": [28.36, -14.02]
 }
 
 let dataZoomLevels = {
@@ -46,7 +49,8 @@ let dataZoomLevels = {
     "stockholm_area": 11,
     "ockero_area": 12,
     "vastervik_area": 12,
-    "canary_area": 7
+    "canary_area": 7,
+    "fuerteventura_area": 9
 }
 
 let workersUrl = './src/workers.js';
